@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: ['./client/index.js'],
+  entry: ['./src/client/index.tsx'],
   output: {
     path: path.join(__dirname, 'build'),
     publicPath: '/',
@@ -41,6 +41,14 @@ module.exports = {
         },
       },
       {
+        test: /\.tsx?/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'ts-loader',
+          options: {},
+        },
+      },
+      {
         test: /.(css|s[ac]ss)$/,
         exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
@@ -51,9 +59,13 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    extensions: ['.js', '.tsx', '.ts'],
+  },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './client/index.html',
+      template: './src/client/index.html',
+      filename: './index.html',
     }),
   ],
 };
