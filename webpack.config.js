@@ -34,8 +34,8 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              ['@babel/preset-env', { targets: 'defaults' }],
-              ['@babel/preset-react', { targets: 'defaults' }],
+              ['@babel/preset-env', {targets: 'defaults'}],
+              ['@babel/preset-react', {targets: 'defaults'}],
             ],
           },
         },
@@ -50,7 +50,7 @@ module.exports = {
       },
       {
         test: /.(css|s[ac]ss)$/,
-        exclude: /node_modules/,
+        //        exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
