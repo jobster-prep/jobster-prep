@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
 import type {Question, FilterOptionsType} from '../../types';
 import CardContainer from './cardContainer';
@@ -8,6 +8,18 @@ export interface CardContainerState {
   filteredQuestions: Question[];
   displayedQuestions: Question[];
 }
+interface fetchQuestionsResponse{
+  data: Question[];
+}
+
+export const fetchQuestions = createAsyncThunk<fetchQuestionsResponse, void, {}>(
+  'questionsData/fetch',
+  async () => {
+    const response = await fetch('/questions');
+    const data = await response.json();
+    return { data };
+  }
+)
 
 const initialState: CardContainerState = {
   allQuestions: [
@@ -109,8 +121,8 @@ export const cardContainerSlice = createSlice({
     },
 
     // load array of questions fetched from DB, into store
-    fetchCards: (state, action: PayloadAction<Question[]>) => {
-      state.allQuestions = action.payload;
+    fetchCards: state => {
+      
     },
 
     // filter out any cards whose topic is not associated with "true" in filter options
@@ -120,6 +132,11 @@ export const cardContainerSlice = createSlice({
       );
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(fetchQuestions.fulfilled, (state, action: PayloadAction<fetchQuestionsResponse>) =>{
+      state.allQuestions = action.payload.data;
+    })
+  }
 });
 
 // export reducers here

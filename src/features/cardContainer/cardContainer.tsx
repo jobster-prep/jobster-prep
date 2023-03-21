@@ -13,6 +13,7 @@ const CardContainer = () => {
   // once DB is ready, change initial state of allquestions
   // make fetch request from here, pass questions as payload, and update state
   useEffect(() => {
+    dispatch(fetchCards())
     dispatch(drawFirstCards());
   }, []);
 
