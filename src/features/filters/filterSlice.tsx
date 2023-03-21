@@ -16,13 +16,13 @@ export const filterSlice = createSlice({
   reducers: {
     setUpFilter: (state, action: PayloadAction<string[]>) => {
       action.payload.forEach((el: string) => {
-        //@ts-ignore
         state.filterOptions[el] = true;
       });
     },
 
     toggleFilter: (state, action: PayloadAction<string>) => {
       state.filterOptions[action.payload] = !state.filterOptions[action.payload];
+      console.log(state.filterOptions);
     },
   },
 });
