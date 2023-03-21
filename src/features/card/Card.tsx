@@ -2,23 +2,51 @@ import React from 'react';
 import type {RootState} from '../../app/store';
 import {useSelector, useDispatch} from 'react-redux';
 import {Question} from '../../types';
-import {flip} from '../cardContainer/cardContainerSlice';
+import {flip, replace} from '../cardContainer/cardContainerSlice';
+import Button from 'react-bootstrap/Button';
 
 // pass question and answer in as props from parent component
 const Card = (id: string, question: Question) => {
-  const {questionText, answer, topics, flipped} = question;
+  const {questionText, answer, topic, flipped} = question;
   const dispatch = useDispatch();
 
-  const topicList: string[] = [];
-  topics.forEach((el: string) => topicList.push(el));
-
   console.log(question);
-  // add logic for flipping card
+  // return (
+  //   <div key={`card${id}`} id={`card${id}`} className="card" onClick={() => dispatch(flip(id))}>
+  //     <div>{flipped ? answer : questionText}</div>
+  //     <div>
+  //       {flipped ? (
+  //         <Button
+  //           className="cardButton"
+  //           aria-label="New Question"
+  //           onClick={() => dispatch(replace(id))}
+  //         >
+  //           New Card
+  //         </Button>
+  //       ) : (
+  //         <div className="topicDiv">{topic}</div>
+  //       )}
+  //     </div>
+  //   </div>
+  // );
   return (
-    <div id={'card' + id} className="card" onClick={() => dispatch(flip(id))}>
-      <div>{String(flipped)}</div>
+    <div key={`card${id}`} id={`card${id}`} className="card" onClick={() => dispatch(flip(id))}>
       <div>{flipped ? answer : questionText}</div>
-      <div>{flipped ? topics : 'buttons'}</div>
+      <div>
+        {flipped ? (
+          <Button
+            className="cardButton"
+            aria-label="New Question"
+            onClick={() => {
+              dispatch(replace(id));
+            }}
+          >
+            New Card
+          </Button>
+        ) : (
+          <div className="topicDiv">{topic}</div>
+        )}
+      </div>
     </div>
   );
 };

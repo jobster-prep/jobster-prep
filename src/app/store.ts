@@ -3,12 +3,13 @@ import {configureStore} from '@reduxjs/toolkit';
 // these are the default exports from these files, so we can name them whatever we want
 import counterReducer from '../features/counter/counterSlice';
 import cardContainerReducer from '../features/cardContainer/cardContainerSlice';
+import filterSliceReducer from '../features/filters/filterSlice';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     cardContainer: cardContainerReducer,
-    // more reducers??
+    filter: filterSliceReducer,
   },
 });
 
