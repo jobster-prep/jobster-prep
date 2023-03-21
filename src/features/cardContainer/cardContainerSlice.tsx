@@ -114,11 +114,11 @@ export const cardContainerSlice = createSlice({
     },
 
     // filter out any cards whose topic is not associated with "true" in filter options
-    filterCards: (state, action: PayloadAction<FilterOptionsType>) => {
-      state.filteredQuestions = state.allQuestions.filter(
-        (el: Question) => action.payload[el.topic]
-      );
-    },
+    // filterCards: (state, action: PayloadAction<FilterOptionsType>) => {
+    //   state.filteredQuestions = state.allQuestions.filter(
+    //     (el: Question) => action.payload[el.topic]
+    //   );
+    // },
   },
 });
 

@@ -7,8 +7,13 @@ export interface FilterState {
 }
 
 const initialState = {
-  filterOptions: {},
+  filterOptions: {
+    topic1: true,
+    topic2: true,
+    topic3: false,
+  },
 };
+console.log('filterOptions: ' + JSON.stringify(initialState.filterOptions));
 
 export const filterSlice = createSlice({
   name: 'filter',
@@ -21,6 +26,7 @@ export const filterSlice = createSlice({
     },
 
     toggleFilter: (state, action: PayloadAction<string>) => {
+      console.log('toggling ', action.payload);
       state.filterOptions[action.payload] = !state.filterOptions[action.payload];
       console.log(state.filterOptions);
     },

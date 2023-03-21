@@ -6,5 +6,8 @@ export type Question = {
 };
 
 export type FilterOptionsType = {
+  topic1: boolean;
+  topic2: boolean;
+  topic3: boolean;
   [k: string]: boolean;
 };
