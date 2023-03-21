@@ -5,8 +5,7 @@ import {Counter} from '../features/counter/Counter';
 const App = () => {
   return (
     <div>
-      <Counter />;
-      <CardContainer />;
+      <CardContainer />
     </div>
   );
 };

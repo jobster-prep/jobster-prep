@@ -9,9 +9,9 @@ const CardContainer = () => {
 
   const cards: ReactElement[] = [];
   for (let i = 0; i < questions.length; i++) {
-    cards.push(Card(questions[i]));
+    cards.push(Card(String(i), questions[i]));
   }
-  return <div>{cards}</div>;
+  return <div className="cardContainer">{cards}</div>;
 };
 
 export default CardContainer;

@@ -1,5 +1,5 @@
 export type Question = {
-  question: string;
+  questionText: string;
   answer: string;
   topics: string[];
   flipped: boolean;
