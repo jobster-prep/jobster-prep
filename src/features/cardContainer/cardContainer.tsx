@@ -3,10 +3,11 @@ import {useEffect} from 'react';
 import type {RootState} from '../../app/store';
 import {useSelector, useDispatch} from 'react-redux';
 import Card from '../card/Card';
-import {drawFirstCards, fetchCards} from './cardContainerSlice';
+import {drawFirstCards, fetchCards, filterCards} from './cardContainerSlice';
 
 const CardContainer = () => {
   const questions = useSelector((state: RootState) => state.cardContainer.displayedQuestions);
+  const filterOptions = useSelector((state: RootState) => state.filter.filterOptions);
   const dispatch = useDispatch();
 
   // for testing, before database is ready
@@ -15,6 +16,10 @@ const CardContainer = () => {
   useEffect(() => {
     dispatch(drawFirstCards());
   }, []);
+
+  useEffect(() => {
+    dispatch(filterCards(filterOptions));
+  }, [filterOptions]);
 
   // look into createAsyncThunk
   /*

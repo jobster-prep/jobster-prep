@@ -8,7 +8,8 @@ const FilterControl = (id: string, topic: string, toggleStatus: boolean) => {
   return (
     <Button
       id={`filter${id}`}
-      className={toggleStatus ? 'btn btn-success' : 'btn btn-light'}
+      key={`filter${id}`}
+      className={toggleStatus ? 'btn btn-info' : 'btn btn-light'}
       aria-label={`filter ${topic}`}
       onClick={() => {
         console.log('toggle status ', toggleStatus);

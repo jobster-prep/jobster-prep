@@ -14,61 +14,61 @@ const initialState: CardContainerState = {
     {
       questionText: 'Question 1',
       answer: 'Answer 1',
-      topic: 'topic',
+      topic: 'topic1',
       flipped: false,
     },
     {
       questionText: 'Question 2',
       answer: 'Answer 2',
-      topic: 'topic1',
+      topic: 'topic2',
       flipped: false,
     },
     {
       questionText: 'Question 3',
       answer: 'Answer 3',
-      topic: 'topic',
+      topic: 'topic1',
       flipped: false,
     },
     {
       questionText: 'Question 4',
       answer: 'Answer 4',
-      topic: 'topic',
+      topic: 'topic2',
       flipped: false,
     },
     {
       questionText: 'Question 5',
       answer: 'Answer 5',
-      topic: 'topic',
+      topic: 'topic1',
       flipped: false,
     },
     {
       questionText: 'Question 6',
       answer: 'Answer 6',
-      topic: 'topic',
+      topic: 'topic2',
       flipped: false,
     },
     {
       questionText: 'Question 7',
       answer: 'Answer 7',
-      topic: 'topic',
+      topic: 'topic1',
       flipped: false,
     },
     {
       questionText: 'Question 8',
       answer: 'Answer 8',
-      topic: 'topic',
+      topic: 'topic2',
       flipped: false,
     },
     {
       questionText: 'Question 9',
       answer: 'Answer 9',
-      topic: 'topic',
+      topic: 'topic1',
       flipped: false,
     },
     {
       questionText: 'Question 10',
       answer: 'Answer 10',
-      topic: 'topic',
+      topic: 'topic2',
       flipped: false,
     },
   ],
@@ -114,15 +114,15 @@ export const cardContainerSlice = createSlice({
     },
 
     // filter out any cards whose topic is not associated with "true" in filter options
-    // filterCards: (state, action: PayloadAction<FilterOptionsType>) => {
-    //   state.filteredQuestions = state.allQuestions.filter(
-    //     (el: Question) => action.payload[el.topic]
-    //   );
-    // },
+    filterCards: (state, action: PayloadAction<FilterOptionsType>) => {
+      state.filteredQuestions = state.allQuestions.filter(
+        (el: Question) => action.payload[el.topic]
+      );
+    },
   },
 });
 
 // export reducers here
-export const {flip, replace, drawFirstCards, fetchCards} = cardContainerSlice.actions;
+export const {flip, replace, drawFirstCards, fetchCards, filterCards} = cardContainerSlice.actions;
 
 export default cardContainerSlice.reducer;
