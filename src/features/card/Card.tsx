@@ -31,20 +31,17 @@ const Card = (id: string, question: Question) => {
   return (
     <div key={`card${id}`} id={`card${id}`} className="card" onClick={() => dispatch(flip(id))}>
       <div>{flipped ? answer : questionText}</div>
+      <div className="topicDiv">{topic}</div>
       <div>
-        {flipped ? (
-          <Button
-            className="cardButton"
-            aria-label="New Question"
-            onClick={() => {
-              dispatch(replace(id));
-            }}
-          >
-            New Card
-          </Button>
-        ) : (
-          <div className="topicDiv">{topic}</div>
-        )}
+        <Button
+          className="cardButton"
+          aria-label="New Question"
+          onClick={() => {
+            dispatch(replace(id));
+          }}
+        >
+          New Card
+        </Button>
       </div>
     </div>
   );

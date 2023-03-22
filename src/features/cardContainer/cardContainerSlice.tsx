@@ -166,7 +166,7 @@ export const cardContainerSlice = createSlice({
       // set flipped to true because flip() flips the card whenever anywhere in the card is clicked
       newQuestion.flipped = true;
       state.displayedQuestions[index] = newQuestion;
-      state.filteredQuestions.push(oldQuestion);
+      state.allQuestions.push(oldQuestion);
       state.filteredQuestions.shift();
     },
 
@@ -181,6 +181,7 @@ export const cardContainerSlice = createSlice({
       state.filteredQuestions = state.allQuestions.filter(
         (el: Question) => action.payload[el.topic]
       );
+
       // check if any currently displayed cards need to be filtered
       // for any cards filtered out of displayedQuestions, also re-add them to the bottom of the deck
       state.displayedQuestions.forEach((el: Question) => {
@@ -192,6 +193,7 @@ export const cardContainerSlice = createSlice({
         (el: Question) => action.payload[el.topic]
       );
       // if a previous filtering made fewer than six questions display, display 6
+      console.log('replenishing');
       while (state.displayedQuestions.length < 6 && state.filteredQuestions[0]) {
         const newQuestion = state.filteredQuestions[0];
         newQuestion.flipped = false;
