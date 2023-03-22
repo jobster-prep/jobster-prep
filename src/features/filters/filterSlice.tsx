@@ -6,26 +6,38 @@ export interface FilterState {
   filterOptions: FilterOptionsType;
 }
 
-const initialState = {
-  filterOptions: {},
+const initialState: FilterState = {
+  filterOptions: {
+    initializer: true,
+  },
 };
+
+console.log('filterOptions: ' + JSON.stringify(initialState.filterOptions));
 
 export const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
     setUpFilter: (state, action: PayloadAction<string[]>) => {
+      console.log(action.payload);
       action.payload.forEach((el: string) => {
+        console.log('el: ', el);
         state.filterOptions[el] = true;
       });
     },
 
     toggleFilter: (state, action: PayloadAction<string>) => {
+      console.log('toggling ', action.payload);
       state.filterOptions[action.payload] = !state.filterOptions[action.payload];
-      console.log(state.filterOptions);
+    },
+
+    setSame: (state, action: PayloadAction<boolean>) => {
+      for (const el in state.filterOptions) {
+        state.filterOptions[el] = action.payload;
+      }
     },
   },
 });
 
-export const {setUpFilter, toggleFilter} = filterSlice.actions;
+export const {setUpFilter, toggleFilter, setSame} = filterSlice.actions;
 export default filterSlice.reducer;
