@@ -7,6 +7,7 @@ export interface CardContainerState {
   allQuestions: Question[];
   filteredQuestions: Question[];
   displayedQuestions: Question[];
+  alert: string;
 }
 
 const initialState: CardContainerState = {
@@ -134,6 +135,7 @@ const initialState: CardContainerState = {
   ],
   displayedQuestions: [],
   filteredQuestions: [],
+  alert: '',
 };
 
 export const cardContainerSlice = createSlice({
@@ -142,7 +144,6 @@ export const cardContainerSlice = createSlice({
   reducers: {
     // flip over a card
     flip: (state, action: PayloadAction<string>) => {
-      console.log('flipping ' + action.payload);
       // slice the number off the end of the card's ID string
       const cardNum: number = Number(action.payload);
       state.displayedQuestions[cardNum].flipped = !state.displayedQuestions[cardNum].flipped;
@@ -154,7 +155,6 @@ export const cardContainerSlice = createSlice({
       // shift and push questions that were drawn to the bottom of the "deck" (allQuestions)
       // state.allQuestions = state.allQuestions.slice(6).concat(state.displayedQuestions);
       state.allQuestions = state.allQuestions.slice(6);
-      console.log('allQuestions: ', state.allQuestions);
     },
 
     // modify to only pull from filtered topics
@@ -167,7 +167,7 @@ export const cardContainerSlice = createSlice({
       newQuestion.flipped = true;
       state.displayedQuestions[index] = newQuestion;
       state.filteredQuestions.push(oldQuestion);
-      state.filteredQuestions = state.allQuestions.slice(1);
+      state.filteredQuestions.shift();
     },
 
     // load array of questions fetched from DB, into store
@@ -177,19 +177,35 @@ export const cardContainerSlice = createSlice({
 
     // filter out any cards whose topic is not associated with "true" in filter options
     filterQuestions: (state, action: PayloadAction<FilterOptionsType>) => {
+      state.alert = '';
       state.filteredQuestions = state.allQuestions.filter(
         (el: Question) => action.payload[el.topic]
       );
+      // if a previous filtering made fewer than six questions display, display 6
+      while (state.displayedQuestions.length < 6 && state.filteredQuestions[0]) {
+        const newQuestion = state.filteredQuestions[0];
+        newQuestion.flipped = false;
+        state.displayedQuestions.push(newQuestion);
+        state.filteredQuestions.shift();
+      }
+
       // check if any currently displayed cards need to be filtered
+      // replace them if so
       for (let i = 0; i < state.displayedQuestions.length; i++) {
         const {topic} = state.displayedQuestions[i];
         if (!action.payload[topic]) {
-          console.log('filtering out ' + i);
+          console.log('removing topic ', topic);
           const oldQuestion = state.displayedQuestions[i];
-          const newQuestion = state.filteredQuestions[0];
-          newQuestion.flipped = false;
-          state.allQuestions.push(oldQuestion);
-          state.displayedQuestions[i] = newQuestion;
+          if (state.filteredQuestions[0]) {
+            const newQuestion = state.filteredQuestions[0];
+            newQuestion.flipped = false;
+            state.filteredQuestions.shift();
+            state.allQuestions.push(oldQuestion);
+            state.displayedQuestions[i] = newQuestion;
+          } else {
+            state.displayedQuestions.splice(i, 1);
+            state.alert = 'No new questions to display based on current filter settings';
+          }
         }
       }
     },

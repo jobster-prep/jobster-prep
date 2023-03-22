@@ -28,7 +28,6 @@ export const filterSlice = createSlice({
     toggleFilter: (state, action: PayloadAction<string>) => {
       console.log('toggling ', action.payload);
       state.filterOptions[action.payload] = !state.filterOptions[action.payload];
-      console.log(state.filterOptions);
     },
   },
 });

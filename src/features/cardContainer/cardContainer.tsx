@@ -7,20 +7,15 @@ import {drawFirstCards, fetchCards, filterQuestions} from './cardContainerSlice'
 
 const CardContainer = () => {
   const questions = useSelector((state: RootState) => state.cardContainer.displayedQuestions);
-  const filteredQuestions = useSelector(
-    (state: RootState) => state.cardContainer.filteredQuestions
-  );
 
   const filterOptions = useSelector((state: RootState) => state.filter.filterOptions);
   const dispatch = useDispatch();
 
-  console.log('filtered: ', filteredQuestions);
   // for testing, before database is ready
   // once DB is ready, change initial state of allquestions
   // make fetch request from here, pass questions as payload, and update state
   useEffect(() => {
     dispatch(drawFirstCards());
-    console.log('filteroptions: ', filterOptions);
   }, []);
 
   useEffect(() => {
