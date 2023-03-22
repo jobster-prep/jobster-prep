@@ -7,7 +7,6 @@ import {drawFirstCards, fetchCards, filterQuestions} from './cardContainerSlice'
 
 const CardContainer = () => {
   const questions = useSelector((state: RootState) => state.cardContainer.displayedQuestions);
-
   const filterOptions = useSelector((state: RootState) => state.filter.filterOptions);
   const dispatch = useDispatch();
 

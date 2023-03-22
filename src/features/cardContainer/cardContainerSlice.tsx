@@ -182,7 +182,12 @@ export const cardContainerSlice = createSlice({
         (el: Question) => action.payload[el.topic]
       );
       // check if any currently displayed cards need to be filtered
-      // replace them if so
+      // for any cards filtered out of displayedQuestions, also re-add them to the bottom of the deck
+      state.displayedQuestions.forEach((el: Question) => {
+        if (!action.payload[el.topic]) {
+          state.allQuestions.push(el);
+        }
+      });
       state.displayedQuestions = state.displayedQuestions.filter(
         (el: Question) => action.payload[el.topic]
       );

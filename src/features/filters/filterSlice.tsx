@@ -29,8 +29,14 @@ export const filterSlice = createSlice({
       console.log('toggling ', action.payload);
       state.filterOptions[action.payload] = !state.filterOptions[action.payload];
     },
+
+    setSame: (state, action: PayloadAction<boolean>) => {
+      for (const el in state.filterOptions) {
+        state.filterOptions[el] = action.payload;
+      }
+    },
   },
 });
 
-export const {setUpFilter, toggleFilter} = filterSlice.actions;
+export const {setUpFilter, toggleFilter, setSame} = filterSlice.actions;
 export default filterSlice.reducer;
