@@ -10,16 +10,30 @@ export interface CardContainerState {
   alert: string;
 }
 interface fetchQuestionsResponse{
-  data: Question[];
+  id: number;
+  question: string;
+  answer: string;
+  topic: string;
 }
 
-export const fetchQuestions = createAsyncThunk<fetchQuestionsResponse, void, {}>(
-  'questionsData/fetch',
+// export const fetchQuestions = createAsyncThunk<fetchQuestionsResponse, void, {}>(
+//   'questionsData/fetch',
+//   async () => {
+//     const response = await fetch('/questions');
+//     const data = await response.json();
+//     console.log('we are in fetchQuestions:', data);
+//     return { data };
+//   }
+// )
+
+export const fetchQuestions = createAsyncThunk<fetchQuestionsResponse[], void>(
+  'cardContainer/fetchQuestions',
   async () => {
-    const response = await fetch('/questions');
+    console.log('before we fetch')
+    const response = await fetch('/api/questions');
     const data = await response.json();
     console.log('we are in fetchQuestions:', data);
-    return { data };
+    return  data;
   }
 )
 
@@ -214,9 +228,8 @@ export const cardContainerSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchQuestions.fulfilled, (state, action: PayloadAction<fetchQuestionsResponse>) =>{
-      state.allQuestions = action.payload.data;
-      console.log('we are in extra reducers:', action.payload.data);
+    builder.addCase(fetchQuestions.fulfilled, (state, action: PayloadAction<fetchQuestionsResponse[]>) =>{
+      console.log('we are in extra reducers:', action.payload);
     })
   }
 });
