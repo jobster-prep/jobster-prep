@@ -7,12 +7,8 @@ export interface FilterState {
 }
 
 const initialState: FilterState = {
-  filterOptions: {
-    initializer: true,
-  },
+  filterOptions: {},
 };
-
-console.log('filterOptions: ' + JSON.stringify(initialState.filterOptions));
 
 export const filterSlice = createSlice({
   name: 'filter',
