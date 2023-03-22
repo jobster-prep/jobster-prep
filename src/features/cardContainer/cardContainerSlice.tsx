@@ -181,32 +181,17 @@ export const cardContainerSlice = createSlice({
       state.filteredQuestions = state.allQuestions.filter(
         (el: Question) => action.payload[el.topic]
       );
+      // check if any currently displayed cards need to be filtered
+      // replace them if so
+      state.displayedQuestions = state.displayedQuestions.filter(
+        (el: Question) => action.payload[el.topic]
+      );
       // if a previous filtering made fewer than six questions display, display 6
       while (state.displayedQuestions.length < 6 && state.filteredQuestions[0]) {
         const newQuestion = state.filteredQuestions[0];
         newQuestion.flipped = false;
         state.displayedQuestions.push(newQuestion);
         state.filteredQuestions.shift();
-      }
-
-      // check if any currently displayed cards need to be filtered
-      // replace them if so
-      for (let i = 0; i < state.displayedQuestions.length; i++) {
-        const {topic} = state.displayedQuestions[i];
-        if (!action.payload[topic]) {
-          console.log('removing topic ', topic);
-          const oldQuestion = state.displayedQuestions[i];
-          if (state.filteredQuestions[0]) {
-            const newQuestion = state.filteredQuestions[0];
-            newQuestion.flipped = false;
-            state.filteredQuestions.shift();
-            state.allQuestions.push(oldQuestion);
-            state.displayedQuestions[i] = newQuestion;
-          } else {
-            state.displayedQuestions.splice(i, 1);
-            state.alert = 'No new questions to display based on current filter settings';
-          }
-        }
       }
     },
   },
