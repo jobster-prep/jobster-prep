@@ -7,6 +7,7 @@ import {drawFirstCards, fetchCards, filterQuestions} from './cardContainerSlice'
 
 const CardContainer = () => {
   const questions = useSelector((state: RootState) => state.cardContainer.displayedQuestions);
+  const allQuestions = useSelector((state: RootState) => state.cardContainer.allQuestions);
   const filterOptions = useSelector((state: RootState) => state.filter.filterOptions);
   const dispatch = useDispatch();
 
@@ -15,7 +16,7 @@ const CardContainer = () => {
   // make fetch request from here, pass questions as payload, and update state
   useEffect(() => {
     dispatch(drawFirstCards());
-  }, []);
+  }, []); // right now this (I think) is causing a 'change in order of hooks' error, but once we have data from backend, we can restructure the hooks to be more stable
 
   useEffect(() => {
     dispatch(filterQuestions(filterOptions));

@@ -6,7 +6,7 @@ import FilterControl from '../filterControls/FilterControl';
 
 const Filters = () => {
   const allQuestions = useSelector((state: RootState) => state.cardContainer.allQuestions);
-  const filterStatus = useSelector((state: RootState) => state.filter.filterOptions);
+  const filterOptions = useSelector((state: RootState) => state.filter.filterOptions);
   // state: make filter buttons toggleable
 
   // get all topics from allQuestions
@@ -18,7 +18,7 @@ const Filters = () => {
   const topicList = ['topic1', 'topic2', 'topic3'];
   const filterControls = [];
   for (let i = 0; i < topicList.length; i++) {
-    const toggleStatus = filterStatus[topicList[i]];
+    const toggleStatus = filterOptions[topicList[i]];
     filterControls.push(FilterControl(String(i), topicList[i], toggleStatus));
   }
   return <div>{filterControls}</div>;

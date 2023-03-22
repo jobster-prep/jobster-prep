@@ -6,13 +6,12 @@ export interface FilterState {
   filterOptions: FilterOptionsType;
 }
 
-const initialState = {
+const initialState: FilterState = {
   filterOptions: {
-    topic1: true,
-    topic2: true,
-    topic3: false,
+    initializer: true,
   },
 };
+
 console.log('filterOptions: ' + JSON.stringify(initialState.filterOptions));
 
 export const filterSlice = createSlice({
@@ -20,7 +19,9 @@ export const filterSlice = createSlice({
   initialState,
   reducers: {
     setUpFilter: (state, action: PayloadAction<string[]>) => {
+      console.log(action.payload);
       action.payload.forEach((el: string) => {
+        console.log('el: ', el);
         state.filterOptions[el] = true;
       });
     },
