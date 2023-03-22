@@ -15,6 +15,7 @@ const CardContainer = () => {
   // once DB is ready, change initial state of allquestions
   // make fetch request from here, pass questions as payload, and update state
   useEffect(() => {
+    dispatch(fetchCards())
     dispatch(drawFirstCards());
   }, []); // right now this (I think) is causing a 'change in order of hooks' error, but once we have data from backend, we can restructure the hooks to be more stable
 
