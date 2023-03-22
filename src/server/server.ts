@@ -1,21 +1,16 @@
 import express, {Request, Response, NextFunction, RequestHandler} from 'express';
+import questionController from './controllers/questionController';
+import {ServerError} from './types';
 
-console.log('==> HI FROM SERVER');
 
 const app = express();
 app.use(express.json());
 
-app.get('/questions', (req: Request, res: Response, next: NextFunction) => res.sendStatus(200));
+app.get('/api/questions', questionController.getQuestions, (req: Request, res: Response, next: NextFunction) => res.send(res.locals.data));
 
-app.post('/questions', (req: Request, res: Response, next: NextFunction) => res.sendStatus(200));
+app.post('/api/questions', questionController.createQuestion, (req: Request, res: Response, next: NextFunction) => res.sendStatus(200));
 
-type ServerError = {
-  log: string;
-  status: number;
-  message: {
-    err: string;
-  };
-};
+
 
 app.use('/', (err: ServerError, req: Request, res: Response, next: NextFunction) => {
   const defaultErr: ServerError = {

@@ -10,3 +10,11 @@ export type errorObject = {
         err: string;
     };
 };
+
+export type ServerError = {
+    log: string;
+    status: number;
+    message: {
+      err: string;
+    };
+  };

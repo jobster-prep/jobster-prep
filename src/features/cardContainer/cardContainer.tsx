@@ -1,21 +1,21 @@
 import React, {ReactElement} from 'react';
 import {useEffect} from 'react';
-import type {RootState} from '../../app/store';
+import type {RootState, AppDispatch} from '../../app/store';
 import {useSelector, useDispatch} from 'react-redux';
 import Card from '../card/Card';
-import {drawFirstCards, fetchCards, filterQuestions} from './cardContainerSlice';
+import {drawFirstCards, fetchQuestions, filterQuestions} from './cardContainerSlice';
 
 const CardContainer = () => {
   const questions = useSelector((state: RootState) => state.cardContainer.displayedQuestions);
   const allQuestions = useSelector((state: RootState) => state.cardContainer.allQuestions);
   const filterOptions = useSelector((state: RootState) => state.filter.filterOptions);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   // for testing, before database is ready
   // once DB is ready, change initial state of allquestions
   // make fetch request from here, pass questions as payload, and update state
   useEffect(() => {
-    dispatch(fetchCards())
+    dispatch(fetchQuestions())
     dispatch(drawFirstCards());
   }, []); // right now this (I think) is causing a 'change in order of hooks' error, but once we have data from backend, we can restructure the hooks to be more stable
 
