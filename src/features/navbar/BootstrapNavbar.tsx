@@ -2,12 +2,18 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Filters from '../filters/Filters';
+import AddQuestionModal from '../addQuestion/addQuestion';
 import {setSame} from '../filters/filterSlice';
 import {useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../app/store';
+import {toggleModal} from '../addQuestion/addQuestionSlice';
 
 function BootstrapNavbar() {
+  const isModalShowing = useSelector((state: RootState) => state.addQuestion.isModalShowing);
   const dispatch = useDispatch();
 
   return (
@@ -17,7 +23,7 @@ function BootstrapNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Add a Question</Nav.Link>
+            <Nav.Link onClick={() => dispatch(toggleModal())}>Add a Question</Nav.Link>
             <NavDropdown title="Filter Questions" id="basic-nav-dropdown">
               <Filters />
               <NavDropdown.Divider />

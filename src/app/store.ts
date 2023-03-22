@@ -4,12 +4,14 @@ import {configureStore} from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
 import cardContainerReducer from '../features/cardContainer/cardContainerSlice';
 import filterSliceReducer from '../features/filters/filterSlice';
+import addQuestionReducer from '../features/addQuestion/addQuestionSlice';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     cardContainer: cardContainerReducer,
     filter: filterSliceReducer,
+    addQuestion: addQuestionReducer,
   },
 });
 
