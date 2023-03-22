@@ -10,7 +10,6 @@ const Card = (id: string, question: Question) => {
   const {questionText, answer, topic, flipped} = question;
   const dispatch = useDispatch();
 
-  console.log(question);
   // return (
   //   <div key={`card${id}`} id={`card${id}`} className="card" onClick={() => dispatch(flip(id))}>
   //     <div>{flipped ? answer : questionText}</div>
