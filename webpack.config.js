@@ -1,7 +1,8 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-module.exports = {
+export default {
+  mode: process.env.NODE_ENV,
   entry: ['./src/client/index.tsx'],
   output: {
     path: path.join(__dirname, 'build'),
@@ -9,16 +10,12 @@ module.exports = {
     filename: 'bundle.js',
     assetModuleFilename: '[name][ext]',
   },
-  mode: process.env.NODE_ENV,
   devServer: {
     host: 'localhost',
     port: 8080,
     hot: true,
     proxy: {
-      '/api/**': {
-        target: 'http://localhost:3000/',
-        secure: false,
-      },
+      '/api': 'http://localhost:3000/',
     },
     static: {
       directory: path.resolve(__dirname, 'build'),
