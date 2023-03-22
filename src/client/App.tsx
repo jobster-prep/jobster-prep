@@ -1,5 +1,6 @@
 import React from 'react';
 import CardContainer from '../features/cardContainer/cardContainer';
+import {Counter} from '../features/counter/Counter';
 import Navbar from '../features/navbar/BootstrapNavbar';
 import AlertMessage from '../features/alert/AlertMessage';
 import {useSelector} from 'react-redux';

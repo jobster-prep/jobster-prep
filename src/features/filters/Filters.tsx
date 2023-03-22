@@ -1,20 +1,13 @@
 import React from 'react';
-import {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {RootState} from '../../app/store';
 import {Question} from '../../types';
 import FilterControl from '../filterControls/FilterControl';
-import {filterQuestions} from '../cardContainer/cardContainerSlice';
 
 const Filters = () => {
   const allQuestions = useSelector((state: RootState) => state.cardContainer.allQuestions);
-  const filterOptions = useSelector((state: RootState) => state.filter.filterOptions);
   const filterStatus = useSelector((state: RootState) => state.filter.filterOptions);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(filterQuestions(filterOptions));
-  }, [filterOptions]);
+  // state: make filter buttons toggleable
 
   // get all topics from allQuestions
   const topicSet = new Set<string>();

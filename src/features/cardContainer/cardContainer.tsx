@@ -7,7 +7,7 @@ import {drawFirstCards, fetchCards, filterQuestions} from './cardContainerSlice'
 
 const CardContainer = () => {
   const questions = useSelector((state: RootState) => state.cardContainer.displayedQuestions);
-  const allQuestions = useSelector((state: RootState) => state.cardContainer.allQuestions);
+  const filterOptions = useSelector((state: RootState) => state.filter.filterOptions);
   const dispatch = useDispatch();
 
   // for testing, before database is ready
@@ -17,9 +17,29 @@ const CardContainer = () => {
     dispatch(drawFirstCards());
   }, []);
 
+  useEffect(() => {
+    dispatch(filterQuestions(filterOptions));
+  }, [filterOptions]);
+
   // useEffect(() => {
   //   dispatch(filterQuestions(filterOptions));
   // }, [filterOptions]);
+
+  // look into createAsyncThunk
+  /*
+  useEffect(() => {
+    const getCards = async () => {
+      const cards = await fetch('/questions', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return cards;
+    };
+    const cards = getCards();
+    dispatch(fetchCards(cards))
+  });
+  */
 
   const cards: ReactElement[] = [];
   for (let i = 0; i < questions.length; i++) {
