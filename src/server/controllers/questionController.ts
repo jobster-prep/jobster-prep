@@ -10,7 +10,7 @@ questionController.getQuestions = async (req, res, next) => {
     try{
         const questions = await prisma.questions.findMany();
         console.log(questions);
-        res.locals.data = {questions}
+        res.locals.data = questions
         return next()
     }catch(err){
         return next({
@@ -26,8 +26,7 @@ questionController.createQuestion = async (req, res, next) => {
     try{
         const result = await prisma.questions.create({
             data: {
-                //change this
-                quesiton: question,
+                question,
                 answer,
                 topic
             }
@@ -36,7 +35,7 @@ questionController.createQuestion = async (req, res, next) => {
         return next()
     }catch(err){
         return next({
-            log: `ERROR - questionController.getQuestions failed to get questions: ${err}`,
+            log: `ERROR - questionController.createQuestion failed to create a question: ${err}`,
             status: 400,
             message: {err},
         });

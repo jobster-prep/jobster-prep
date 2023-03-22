@@ -1,7 +1,7 @@
 -- CreateTable
 CREATE TABLE "Questions" (
     "id" SERIAL NOT NULL,
-    "quesiton" TEXT NOT NULL,
+    "question" TEXT NOT NULL,
     "answer" TEXT NOT NULL,
     "topic" TEXT NOT NULL,
 
