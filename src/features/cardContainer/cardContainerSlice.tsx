@@ -17,72 +17,73 @@ export const fetchQuestions = createAsyncThunk<fetchQuestionsResponse, void, {}>
   async () => {
     const response = await fetch('/questions');
     const data = await response.json();
+    console.log('we are in fetchQuestions:', data);
     return { data };
   }
 )
 
 const initialState: CardContainerState = {
   allQuestions: [
-    {
-      questionText: 'Question 1',
-      answer: 'Answer 1',
-      topic: 'topic',
-      flipped: false,
-    },
-    {
-      questionText: 'Question 2',
-      answer: 'Answer 2',
-      topic: 'topic1',
-      flipped: false,
-    },
-    {
-      questionText: 'Question 3',
-      answer: 'Answer 3',
-      topic: 'topic',
-      flipped: false,
-    },
-    {
-      questionText: 'Question 4',
-      answer: 'Answer 4',
-      topic: 'topic',
-      flipped: false,
-    },
-    {
-      questionText: 'Question 5',
-      answer: 'Answer 5',
-      topic: 'topic',
-      flipped: false,
-    },
-    {
-      questionText: 'Question 6',
-      answer: 'Answer 6',
-      topic: 'topic',
-      flipped: false,
-    },
-    {
-      questionText: 'Question 7',
-      answer: 'Answer 7',
-      topic: 'topic',
-      flipped: false,
-    },
-    {
-      questionText: 'Question 8',
-      answer: 'Answer 8',
-      topic: 'topic',
-      flipped: false,
-    },
-    {
-      questionText: 'Question 9',
-      answer: 'Answer 9',
-      topic: 'topic',
-      flipped: false,
-    },
-    {
-      questionText: 'Question 10',
-      answer: 'Answer 10',
-      topic: 'topic',
-      flipped: false,
-    },
+    // {
+    //   questionText: 'Question 1',
+    //   answer: 'Answer 1',
+    //   topic: 'topic',
+    //   flipped: false,
+    // },
+    // {
+    //   questionText: 'Question 2',
+    //   answer: 'Answer 2',
+    //   topic: 'topic1',
+    //   flipped: false,
+    // },
+    // {
+    //   questionText: 'Question 3',
+    //   answer: 'Answer 3',
+    //   topic: 'topic',
+    //   flipped: false,
+    // },
+    // {
+    //   questionText: 'Question 4',
+    //   answer: 'Answer 4',
+    //   topic: 'topic',
+    //   flipped: false,
+    // },
+    // {
+    //   questionText: 'Question 5',
+    //   answer: 'Answer 5',
+    //   topic: 'topic',
+    //   flipped: false,
+    // },
+    // {
+    //   questionText: 'Question 6',
+    //   answer: 'Answer 6',
+    //   topic: 'topic',
+    //   flipped: false,
+    // },
+    // {
+    //   questionText: 'Question 7',
+    //   answer: 'Answer 7',
+    //   topic: 'topic',
+    //   flipped: false,
+    // },
+    // {
+    //   questionText: 'Question 8',
+    //   answer: 'Answer 8',
+    //   topic: 'topic',
+    //   flipped: false,
+    // },
+    // {
+    //   questionText: 'Question 9',
+    //   answer: 'Answer 9',
+    //   topic: 'topic',
+    //   flipped: false,
+    // },
+    // {
+    //   questionText: 'Question 10',
+    //   answer: 'Answer 10',
+    //   topic: 'topic',
+    //   flipped: false,
+    // },
   ],
   displayedQuestions: [],
   filteredQuestions: [],
@@ -135,6 +136,7 @@ export const cardContainerSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchQuestions.fulfilled, (state, action: PayloadAction<fetchQuestionsResponse>) =>{
       state.allQuestions = action.payload.data;
+      console.log('we are in extra reducers:', action.payload.data);
     })
   }
 });

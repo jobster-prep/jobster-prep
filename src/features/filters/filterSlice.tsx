@@ -6,7 +6,7 @@ export interface FilterState {
   filterOptions: FilterOptionsType;
 }
 
-const initialState = {
+const initialState: FilterState = {
   filterOptions: {},
 };
 
